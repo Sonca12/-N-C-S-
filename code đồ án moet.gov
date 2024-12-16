@@ -1,0 +1,159 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Đọc dữ liệu từ file Excel
+file_path = r"C:\Users\HP\Downloads\giao-duc-dai-hoc-cleaned-final-updated.xlsx"
+data = pd.read_excel(file_path)
+
+# Kiểm tra dữ liệu sau khi đọc
+print(data.head())
+
+# Phân tích tổng số sinh viên tuyển mới (2020-2021 và 2021-2022)
+students_new = data[['Loại hình', 'Năm học 2020-2021 - Tổng số', 'Năm học 2021-2022 - Tổng số']]
+students_new = students_new.melt(id_vars='Loại hình', var_name='Năm học', value_name='Số lượng sinh viên')
+
+# Loại bỏ các giá trị NaN hoặc không hợp lệ trong 'Số lượng sinh viên'
+students_new['Số lượng sinh viên'] = pd.to_numeric(students_new['Số lượng sinh viên'], errors='coerce')
+
+# Loại bỏ các dòng có giá trị NaN trong 'Số lượng sinh viên'
+students_new = students_new.dropna(subset=['Số lượng sinh viên'])
+
+# Tạo không gian giữa các nhóm bằng cách làm thưa hơn
+plt.figure(figsize=(14, 10))  # Kích thước biểu đồ lớn hơn
+
+# Vẽ biểu đồ dạng bar ngang với màu sắc dễ nhận diện
+sns.barplot(data=students_new, y='Loại hình', x='Số lượng sinh viên', hue='Năm học', orient='h', palette='Set2')
+
+# Thêm tiêu đề và nhãn
+plt.title('Số Lượng Sinh Viên Tuyển Mới (2020-2021 vs 2021-2022)', fontsize=18)
+plt.xlabel('Số lượng sinh viên', fontsize=14)
+plt.ylabel('Loại hình', fontsize=14)
+
+# Thêm nhãn cho các giá trị trên thanh bar và điều chỉnh vị trí
+for p in plt.gca().patches:
+    plt.gca().annotate(f'{p.get_width():,.0f}', 
+                       (p.get_width() + 5000, p.get_y() + p.get_height() / 2), 
+                       ha='center', va='center', fontsize=12, color='black')
+
+# Điều chỉnh khoảng cách giữa các thanh và nhãn
+plt.tight_layout()
+
+# Hiển thị biểu đồ
+plt.show()
+
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+
+# Dữ liệu giả định từ file đã chỉnh sửa
+data = {
+    'Năm học': ['2020-2021', '2021-2022'],
+    'Công lập': [414518, 443249],
+    'Ngoài công lập': [105083, 125607],
+}
+
+df = pd.DataFrame(data)
+
+# Tạo biểu đồ
+df_melted = df.melt(id_vars=['Năm học'], var_name='Loại hình', value_name='Số lượng sinh viên')
+plt.figure(figsize=(10, 6))
+sns.barplot(data=df_melted, x='Năm học', y='Số lượng sinh viên', hue='Loại hình')
+plt.title('Sự thay đổi số lượng sinh viên tuyển mới giữa công lập và ngoài công lập')
+plt.ylabel('Số lượng sinh viên')
+plt.xlabel('Năm học')
+plt.show()
+
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+
+# Dữ liệu giả định từ file đã chỉnh sửa
+data = {
+    'Năm học': ['2020-2021', '2021-2022'],
+    'Công lập': [414518, 443249],
+    'Ngoài công lập': [105083, 125607],
+}
+
+df = pd.DataFrame(data)
+
+# Tạo biểu đồ
+df_melted = df.melt(id_vars=['Năm học'], var_name='Loại hình', value_name='Số lượng sinh viên')
+plt.figure(figsize=(10, 6))
+sns.barplot(data=df_melted, x='Năm học', y='Số lượng sinh viên', hue='Loại hình')
+plt.title('Sự thay đổi số lượng sinh viên tuyển mới giữa công lập và ngoài công lập')
+plt.ylabel('Số lượng sinh viên')
+plt.xlabel('Năm học')
+plt.show()
+
+data_graduation = {
+    'Năm học': ['2020-2021', '2021-2022'],
+    'Công lập': [209028, 214250],
+    'Ngoài công lập': [33350, 30923],
+    'Công lập tuyển mới': [414518, 443249],
+    'Ngoài công lập tuyển mới': [105083, 125607]
+}
+
+df_graduation = pd.DataFrame(data_graduation)
+
+# Tính tỷ lệ tốt nghiệp
+df_graduation['Công lập tỷ lệ tốt nghiệp'] = df_graduation['Công lập'] / df_graduation['Công lập tuyển mới'] * 100
+df_graduation['Ngoài công lập tỷ lệ tốt nghiệp'] = df_graduation['Ngoài công lập'] / df_graduation['Ngoài công lập tuyển mới'] * 100
+
+# Tạo biểu đồ tỷ lệ tốt nghiệp
+df_graduation_melted = df_graduation.melt(id_vars=['Năm học'], value_vars=['Công lập tỷ lệ tốt nghiệp', 'Ngoài công lập tỷ lệ tốt nghiệp'], var_name='Loại hình', value_name='Tỷ lệ tốt nghiệp')
+plt.figure(figsize=(10, 6))
+sns.barplot(data=df_graduation_melted, x='Năm học', y='Tỷ lệ tốt nghiệp', hue='Loại hình')
+plt.title('Tỷ lệ tốt nghiệp giữa công lập và ngoài công lập')
+plt.ylabel('Tỷ lệ tốt nghiệp (%)')
+plt.xlabel('Năm học')
+plt.show()
+
+
+data_faculty = {
+    'Năm học': ['2020-2021', '2021-2022'],
+    'Giảng viên cơ hữu': [76576, 78190],
+    'Cán bộ quản lý': [881, 851],
+    'Nhân viên': [11547, 11585],
+}
+
+df_faculty = pd.DataFrame(data_faculty)
+
+# Tạo biểu đồ
+df_faculty_melted = df_faculty.melt(id_vars=['Năm học'], var_name='Loại', value_name='Số lượng')
+plt.figure(figsize=(10, 6))
+sns.barplot(data=df_faculty_melted, x='Năm học', y='Số lượng', hue='Loại')
+plt.title('Sự thay đổi trong số lượng giảng viên và cán bộ quản lý')
+plt.ylabel('Số lượng')
+plt.xlabel('Năm học')
+plt.show()
+
+
+import numpy as np
+from sklearn.linear_model import LinearRegression
+
+# Dữ liệu về số lượng sinh viên tuyển mới (Công lập và Ngoài công lập)
+years = np.array([2020, 2021]).reshape(-1, 1)
+students_public = np.array([414518, 443249])
+students_private = np.array([105083, 125607])
+
+# Dự báo cho các năm tiếp theo
+model_public = LinearRegression().fit(years, students_public)
+model_private = LinearRegression().fit(years, students_private)
+
+future_years = np.array([2022, 2023, 2024]).reshape(-1, 1)
+future_public = model_public.predict(future_years)
+future_private = model_private.predict(future_years)
+
+# Biểu đồ dự báo
+plt.figure(figsize=(10, 6))
+plt.plot([2020, 2021, 2022, 2023, 2024], np.concatenate([students_public, future_public]), label='Công lập')
+plt.plot([2020, 2021, 2022, 2023, 2024], np.concatenate([students_private, future_private]), label='Ngoài công lập')
+plt.title('Dự báo tăng trưởng số lượng sinh viên tuyển mới')
+plt.xlabel('Năm')
+plt.ylabel('Số lượng sinh viên')
+plt.legend()
+plt.show()
+
