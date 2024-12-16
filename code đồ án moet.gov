@@ -5,9 +5,34 @@ import seaborn as sns
 # Đọc dữ liệu từ file Excel
 file_path = r"C:\Users\HP\Downloads\giao-duc-dai-hoc-cleaned-final-updated.xlsx"
 data = pd.read_excel(file_path)
+# import pandas as pd
 
-# Kiểm tra dữ liệu sau khi đọc
-print(data.head())
+# # Đường dẫn file đã làm sạch
+# file_path = '/mnt/data/image.png'  # Đọc từ hình ảnh bạn tải lên nếu bạn có thông tin file Excel rõ ràng
+
+# # Đọc dữ liệu từ file Excel (giả sử dữ liệu của bạn đã được làm sạch vào một file)
+# # Nếu là dữ liệu hình ảnh, bạn sẽ cần phải chuyển nó thành dạng bảng trước khi xử lý.
+
+# # Đọc file Excel sau khi hình ảnh đã được chuyển đổi (bạn cần xử lý OCR nếu là dữ liệu hình ảnh)
+# # data = pd.read_excel(file_path)  # Đây là cách đọc file Excel thông thường.
+
+# # Thay thế giá trị NaN theo quy tắc bạn đưa ra
+# data.fillna({
+#     "Số trường": "Số trường",
+#     "Sinh viên tuyển mới đại học - Chính Quy": "Sinh viên tuyển mới đại học - Chính Quy",
+#     "Sinh viên tuyển mới đại học - Vừa làm vừa học": "Sinh viên tuyển mới đại học - Vừa làm vừa học",
+#     "Sinh viên tuyển mới đại học - Đào tạo từ xa": "Sinh viên tuyển mới đại học - Đào tạo từ xa",
+#     # Thêm các cột khác theo nhu cầu của bạn
+# }, inplace=True)
+
+# # Kiểm tra dữ liệu đã thay thế
+# print(data)
+
+# # Lưu file đã làm sạch vào file mới
+# output_path = '/mnt/data/giao-duc-dai-hoc-cleaned-final-update.xlsx'
+# data.to_excel(output_path, index=False)
+
+# print(f"File đã được lưu tại: {output_path}")
 
 # Phân tích tổng số sinh viên tuyển mới (2020-2021 và 2021-2022)
 students_new = data[['Loại hình', 'Năm học 2020-2021 - Tổng số', 'Năm học 2021-2022 - Tổng số']]
@@ -156,4 +181,3 @@ plt.xlabel('Năm')
 plt.ylabel('Số lượng sinh viên')
 plt.legend()
 plt.show()
-
