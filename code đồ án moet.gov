@@ -7,13 +7,6 @@ file_path = r"C:\Users\HP\Downloads\giao-duc-dai-hoc-cleaned-final-updated.xlsx"
 data = pd.read_excel(file_path)
 # import pandas as pd
 
-# # Đường dẫn file đã làm sạch
-# file_path = '/mnt/data/image.png'  # Đọc từ hình ảnh bạn tải lên nếu bạn có thông tin file Excel rõ ràng
-
-# # Đọc dữ liệu từ file Excel (giả sử dữ liệu của bạn đã được làm sạch vào một file)
-# # Nếu là dữ liệu hình ảnh, bạn sẽ cần phải chuyển nó thành dạng bảng trước khi xử lý.
-
-# # Đọc file Excel sau khi hình ảnh đã được chuyển đổi (bạn cần xử lý OCR nếu là dữ liệu hình ảnh)
 # # data = pd.read_excel(file_path)  # Đây là cách đọc file Excel thông thường.
 
 # # Thay thế giá trị NaN theo quy tắc bạn đưa ra
